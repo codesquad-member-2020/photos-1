@@ -9,17 +9,19 @@
 import UIKit
 
 class PhotoCollectionViewDataSource: NSObject, UICollectionViewDataSource {
+    private let numberOfItems = 40
+    private let reuseIdentifier = "photoCell"
+    private var randCGFloat: CGFloat {
+        .random(in: 0...1)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 40
+        return numberOfItems
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell: UICollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCell", for: indexPath)
-        cell.backgroundColor = UIColor(red: .random(in: 0...1), green: .random(in: 0...1), blue: .random(in: 0...1), alpha: 1)
+        let cell: UICollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
+        cell.backgroundColor = UIColor(red: randCGFloat, green: randCGFloat, blue: randCGFloat, alpha: 1)
         return cell
-    }
-    
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
     }
 }
