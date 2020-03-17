@@ -11,6 +11,7 @@ import Photos
 
 class PhotoDataManager: NSObject, PHPhotoLibraryChangeObserver {
     static let defaultImageSize = CGSize(width: 100, height: 100)
+    static let photoLibraryChanged = "photoLibraryChanged"
     private var photoData = PHAsset.fetchAssets(with: .image, options: nil)
     private let manager = PHImageManager.default()
     var photoCount: Int {
@@ -37,5 +38,6 @@ class PhotoDataManager: NSObject, PHPhotoLibraryChangeObserver {
     
     func photoLibraryDidChange(_ changeInstance: PHChange) {
         photoData = PHAsset.fetchAssets(with: .image, options: nil)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: PhotoDataManager.photoLibraryChanged), object: nil)
     }
 }

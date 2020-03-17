@@ -16,6 +16,13 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         photoCollectionView.dataSource = photoDataSource
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadCollectionView), name: NSNotification.Name(rawValue: PhotoDataManager.photoLibraryChanged), object: nil)
+    }
+    
+    @objc func reloadCollectionView() {
+        DispatchQueue.main.async {
+            self.photoCollectionView.reloadData()
+        }
     }
 }
 
