@@ -10,7 +10,7 @@ import UIKit
 import Photos
 
 class PhotoDataManager: NSObject, PHPhotoLibraryChangeObserver {
-    static let defaultImageSize = CGSize(width: 100, height: 100)
+    static let thumbnailImageSize = CGSize(width: 100, height: 100)
     static let photoLibraryChanged = "photoLibraryChanged"
     private var photoData = PHAsset.fetchAssets(with: .image, options: nil)
     private let manager = PHImageManager.default()
@@ -29,7 +29,7 @@ class PhotoDataManager: NSObject, PHPhotoLibraryChangeObserver {
     
     func loadImage(index: Int) -> UIImage? {
         var image: UIImage?
-        manager.requestImage(for: photoData.object(at: index), targetSize: PhotoDataManager.defaultImageSize, contentMode: .aspectFill, options: nil) { (img, error) in
+        manager.requestImage(for: photoData.object(at: index), targetSize: PhotoDataManager.thumbnailImageSize, contentMode: .aspectFill, options: nil) { (img, error) in
             guard let img = img else { return }
             image = img
         }
