@@ -13,6 +13,10 @@ class ViewController: UIViewController {
     
     private let photoDataSource = PhotoCollectionViewDataSource()
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         photoCollectionView.dataSource = photoDataSource
