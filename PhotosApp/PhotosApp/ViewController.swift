@@ -20,10 +20,17 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         photoCollectionView.dataSource = photoDataSource
+        addPhotoObservers()
+    }
+}
+
+extension ViewController {
+    func addPhotoObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(photoRemoveUpdate), name: NSNotification.Name(rawValue: PhotoDataManager.photoRemoved), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(photoInsertUpdate), name: NSNotification.Name(rawValue: PhotoDataManager.photoInserted), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(photoChangeUpdate), name: NSNotification.Name(rawValue: PhotoDataManager.photoChanged), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(photoEnumerateUpdate), name: NSNotification.Name(rawValue: PhotoDataManager.photoEnumerated), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(photoReloadUpdate), name: NSNotification.Name(rawValue: PhotoDataManager.photoReload), object: nil)
     }
     
     @objc func photoRemoveUpdate(_ notification: Notification) {
@@ -65,5 +72,10 @@ class ViewController: UIViewController {
             }, completion: nil)
         }
     }
+    
+    @objc func photoReloadUpdate() {
+        DispatchQueue.main.sync {
+            self.photoCollectionView.reloadData()
+        }
+    }
 }
-
