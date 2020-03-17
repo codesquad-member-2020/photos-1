@@ -9,7 +9,6 @@
 import UIKit
 
 class PhotoCollectionViewDataSource: NSObject, UICollectionViewDataSource {
-    
     let photoDataManager = PhotoDataManager()
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

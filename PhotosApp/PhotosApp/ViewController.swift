@@ -9,8 +9,8 @@
 import UIKit
 
 class ViewController: UIViewController {
-
     @IBOutlet weak var photoCollectionView: UICollectionView!
+    
     private let photoDataSource = PhotoCollectionViewDataSource()
     
     override func viewDidLoad() {
