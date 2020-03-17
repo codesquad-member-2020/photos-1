@@ -14,6 +14,8 @@
 		44062B22241F4EC6001DCD55 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44062B21241F4EC6001DCD55 /* Assets.xcassets */; };
 		44062B25241F4EC6001DCD55 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44062B23241F4EC6001DCD55 /* LaunchScreen.storyboard */; };
 		44062B2F241F5837001DCD55 /* PhotoCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44062B2E241F5837001DCD55 /* PhotoCollectionViewDataSource.swift */; };
+		44062B3124206E4E001DCD55 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44062B3024206E4E001DCD55 /* PhotoCollectionViewCell.swift */; };
+		444E12C32420A9BA00FDD453 /* PhotoDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444E12C22420A9BA00FDD453 /* PhotoDataManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		44062B24241F4EC6001DCD55 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		44062B26241F4EC6001DCD55 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		44062B2E241F5837001DCD55 /* PhotoCollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewDataSource.swift; sourceTree = "<group>"; };
+		44062B3024206E4E001DCD55 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
+		444E12C22420A9BA00FDD453 /* PhotoDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDataManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,7 +65,9 @@
 				44062B18241F4EC5001DCD55 /* AppDelegate.swift */,
 				44062B1A241F4EC5001DCD55 /* SceneDelegate.swift */,
 				44062B1C241F4EC5001DCD55 /* ViewController.swift */,
+				44062B3024206E4E001DCD55 /* PhotoCollectionViewCell.swift */,
 				44062B2E241F5837001DCD55 /* PhotoCollectionViewDataSource.swift */,
+				444E12C22420A9BA00FDD453 /* PhotoDataManager.swift */,
 				44062B1E241F4EC5001DCD55 /* Main.storyboard */,
 				44062B21241F4EC6001DCD55 /* Assets.xcassets */,
 				44062B23241F4EC6001DCD55 /* LaunchScreen.storyboard */,
@@ -142,8 +148,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				44062B1D241F4EC5001DCD55 /* ViewController.swift in Sources */,
+				44062B3124206E4E001DCD55 /* PhotoCollectionViewCell.swift in Sources */,
 				44062B19241F4EC5001DCD55 /* AppDelegate.swift in Sources */,
 				44062B2F241F5837001DCD55 /* PhotoCollectionViewDataSource.swift in Sources */,
+				444E12C32420A9BA00FDD453 /* PhotoDataManager.swift in Sources */,
 				44062B1B241F4EC5001DCD55 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
