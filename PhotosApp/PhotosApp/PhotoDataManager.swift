@@ -56,8 +56,11 @@ class PhotoDataManager: NSObject, PHPhotoLibraryChangeObserver {
             changes.enumerateMoves { (fromIndex, toIndex) in
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: PhotoDataManager.photoEnumerated), object: nil, userInfo: [PhotoDataManager.photoEnumerated : (fromIndex, toIndex)])
             }
+<<<<<<< HEAD
         } else {
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: PhotoDataManager.photoReload), object: nil)
+=======
+>>>>>>> 90e897f205ab512c4117b966671235e2698e9149
         }
     }
 }
