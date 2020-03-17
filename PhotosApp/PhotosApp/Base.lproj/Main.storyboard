@@ -8,7 +8,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Photos-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="PhotosApp" customModuleProvider="target" sceneMemberID="viewController">
@@ -47,7 +47,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Hcq-wJ-STS"/>
+                    <navigationItem key="navigationItem" title="Photos" id="Hcq-wJ-STS"/>
                     <connections>
                         <outlet property="photoCollectionView" destination="X3N-00-iu6" id="dkD-sc-T8f"/>
                     </connections>
