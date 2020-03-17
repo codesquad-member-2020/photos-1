@@ -10,5 +10,16 @@ import UIKit
 import Photos
 
 class PhotoDataManager {
-    let photoData = PHAsset.fetchAssets(with: .image, options: nil)
+    static let defaultImageSize = CGSize(width: 100, height: 100)
+    private let photoData = PHAsset.fetchAssets(with: .image, options: nil)
+    private let manager = PHImageManager.default()
+    
+    func loadImage(index: Int) -> UIImage? {
+        var image: UIImage?
+        manager.requestImage(for: photoData.object(at: index), targetSize: PhotoDataManager.defaultImageSize, contentMode: .aspectFill, options: nil) { (img, error) in
+            guard let img = img else { return }
+            image = img
+        }
+        return image
+    }
 }
