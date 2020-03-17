@@ -13,6 +13,9 @@ class PhotoDataManager {
     static let defaultImageSize = CGSize(width: 100, height: 100)
     private let photoData = PHAsset.fetchAssets(with: .image, options: nil)
     private let manager = PHImageManager.default()
+    var photoCount: Int {
+        return photoData.count
+    }
     
     func loadImage(index: Int) -> UIImage? {
         var image: UIImage?
