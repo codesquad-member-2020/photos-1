@@ -37,7 +37,8 @@ class PhotoDataManager: NSObject, PHPhotoLibraryChangeObserver {
     }
     
     func photoLibraryDidChange(_ changeInstance: PHChange) {
-        photoData = PHAsset.fetchAssets(with: .image, options: nil)
+        guard let changes = changeInstance.changeDetails(for: photoData) else { return }
+        photoData = changes.fetchResultAfterChanges
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: PhotoDataManager.photoLibraryChanged), object: nil)
     }
 }
