@@ -9,12 +9,21 @@
 import UIKit
 import Photos
 
-class PhotoDataManager {
+class PhotoDataManager: NSObject, PHPhotoLibraryChangeObserver {
     static let defaultImageSize = CGSize(width: 100, height: 100)
-    private let photoData = PHAsset.fetchAssets(with: .image, options: nil)
+    private var photoData = PHAsset.fetchAssets(with: .image, options: nil)
     private let manager = PHImageManager.default()
     var photoCount: Int {
         return photoData.count
+    }
+    
+    override init() {
+        super.init()
+        PHPhotoLibrary.shared().register(self)
+    }
+    
+    deinit {
+        PHPhotoLibrary.shared().unregisterChangeObserver(self)
     }
     
     func loadImage(index: Int) -> UIImage? {
@@ -24,5 +33,9 @@ class PhotoDataManager {
             image = img
         }
         return image
+    }
+    
+    func photoLibraryDidChange(_ changeInstance: PHChange) {
+        photoData = PHAsset.fetchAssets(with: .image, options: nil)
     }
 }
