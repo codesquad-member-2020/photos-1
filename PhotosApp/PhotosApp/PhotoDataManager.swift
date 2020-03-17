@@ -10,5 +10,5 @@ import UIKit
 import Photos
 
 class PhotoDataManager {
-    
+    let photoData = PHAsset.fetchAssets(with: .image, options: nil)
 }
