@@ -13,6 +13,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     private var randCGFloat: CGFloat {
         .random(in: 0...1)
     }
+    @IBOutlet weak var photoImageView: UIImageView!
     
     override init(frame: CGRect) {
         super.init(frame: frame)

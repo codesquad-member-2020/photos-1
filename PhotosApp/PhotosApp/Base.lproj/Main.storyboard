@@ -45,6 +45,9 @@
                                                 <constraint firstAttribute="trailing" secondItem="R5w-dj-PcH" secondAttribute="trailing" id="kJn-2X-0Nh"/>
                                             </constraints>
                                         </collectionViewCellContentView>
+                                        <connections>
+                                            <outlet property="photoImageView" destination="R5w-dj-PcH" id="ASn-AO-JVc"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
