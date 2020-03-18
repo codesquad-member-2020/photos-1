@@ -14,6 +14,7 @@ class DoodleViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        setUpUI()
     }
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -30,5 +31,10 @@ class DoodleViewController: UICollectionViewController {
         // Configure the cell
     
         return cell
+    }
+    
+    func setUpUI() {
+        self.collectionView.backgroundColor = .darkGray
+        self.title = "Doodles"
     }
 }
