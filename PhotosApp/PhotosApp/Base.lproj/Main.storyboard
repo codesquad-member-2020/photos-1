@@ -61,7 +61,11 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" title="Photos" id="Hcq-wJ-STS">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="mXU-0n-Gzw"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="mXU-0n-Gzw">
+                            <connections>
+                                <action selector="addButtonTabbed:" destination="BYZ-38-t0r" id="lV2-Ov-XmY"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="photoCollectionView" destination="X3N-00-iu6" id="dkD-sc-T8f"/>
