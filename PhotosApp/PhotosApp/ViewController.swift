@@ -26,18 +26,18 @@ class ViewController: UIViewController {
 
 extension ViewController {
     func addPhotoObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(photoRemoveUpdate), name: NSNotification.Name(rawValue: PhotoDataManager.photoRemoved), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(photoInsertUpdate), name: NSNotification.Name(rawValue: PhotoDataManager.photoInserted), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(photoChangeUpdate), name: NSNotification.Name(rawValue: PhotoDataManager.photoChanged), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(photoEnumerateUpdate), name: NSNotification.Name(rawValue: PhotoDataManager.photoEnumerated), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(photoReloadUpdate), name: NSNotification.Name(rawValue: PhotoDataManager.photoReload), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(photoRemoveUpdate), name: .photoRemoved, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(photoInsertUpdate), name: .photoInserted, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(photoChangeUpdate), name: .photoChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(photoEnumerateUpdate), name: .photoEnumerated, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(photoReloadUpdate), name: .photoReload, object: nil)
     }
     
     @objc func photoRemoveUpdate(_ notification: Notification) {
         DispatchQueue.main.sync {
             guard let receivedData = notification.userInfo else { return }
             photoCollectionView.performBatchUpdates({
-                guard let index = receivedData[PhotoDataManager.photoRemoved] as? IndexSet else { return }
+                guard let index = receivedData[PhotoDataManager.changes] as? IndexSet else { return }
                 self.photoCollectionView.deleteItems(at: index.map { IndexPath(item: $0, section: 0) })
             }, completion: nil)
         }
@@ -47,7 +47,7 @@ extension ViewController {
         DispatchQueue.main.sync {
             guard let receivedData = notification.userInfo else { return }
             photoCollectionView.performBatchUpdates({
-                guard let index = receivedData[PhotoDataManager.photoInserted] as? IndexSet else { return }
+                guard let index = receivedData[PhotoDataManager.changes] as? IndexSet else { return }
                 self.photoCollectionView.insertItems(at: index.map { IndexPath(item: $0, section: 0) })
             }, completion: nil)
         }
@@ -57,7 +57,7 @@ extension ViewController {
         DispatchQueue.main.sync {
             guard let receivedData = notification.userInfo else { return }
             photoCollectionView.performBatchUpdates({
-                guard let index = receivedData[PhotoDataManager.photoChanged] as? IndexSet else { return }
+                guard let index = receivedData[PhotoDataManager.changes] as? IndexSet else { return }
                 self.photoCollectionView.reloadItems(at: index.map { IndexPath(item: $0, section: 0) })
             }, completion: nil)
         }
@@ -67,7 +67,7 @@ extension ViewController {
         DispatchQueue.main.sync {
             guard let receivedData = notification.userInfo else { return }
             photoCollectionView.performBatchUpdates({
-                guard let index = receivedData[PhotoDataManager.photoEnumerated] as? (Int, Int) else { return }
+                guard let index = receivedData[PhotoDataManager.changes] as? (Int, Int) else { return }
                 self.photoCollectionView.moveItem(at: IndexPath(item: index.0, section: 0), to: IndexPath(item: index.1, section: 0))
             }, completion: nil)
         }
