@@ -41,3 +41,9 @@ class DoodleViewController: UICollectionViewController {
         self.dismiss(animated: true, completion: nil)
     }
 }
+
+extension DoodleViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 110, height: 50)
+    }
+}
