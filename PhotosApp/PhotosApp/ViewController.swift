@@ -11,6 +11,7 @@ import UIKit
 class ViewController: UIViewController {
     @IBOutlet weak var photoCollectionView: UICollectionView!
     
+    private let app = UIApplication.shared.delegate as! AppDelegate
     private let photoDataSource = PhotoCollectionViewDataSource()
     
     deinit {
@@ -21,6 +22,10 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         photoCollectionView.dataSource = photoDataSource
         addPhotoObservers()
+    }
+    
+    @IBAction func addButtonTabbed(_ sender: Any) {
+        self.present(app.doodleNavigationController, animated: true, completion: nil)
     }
 }
 
