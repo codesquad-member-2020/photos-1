@@ -10,7 +10,7 @@ import UIKit
 
 class DoodleViewCell: UICollectionViewCell {
     static let reuseIdentifier = "doodleCell"
-    let doodleImageView: UIImageView = {
+    private let doodleImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -32,5 +32,9 @@ class DoodleViewCell: UICollectionViewCell {
         doodleImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
         doodleImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         doodleImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+    }
+    
+    func setImage(_ image: UIImage?) {
+        doodleImageView.image = image
     }
 }

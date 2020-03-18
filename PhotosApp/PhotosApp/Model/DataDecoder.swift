@@ -14,7 +14,7 @@ class DataDecoder {
     
     struct DoodleImage: Decodable {
         var title: String
-        var image: String
+        var image: URL
         var date: String
     }
     
@@ -28,14 +28,10 @@ class DataDecoder {
         }
     }
     
-    func getImageFor(index: Int) -> UIImage? {
-        do {
-            guard let imageURL = URL(string: doodleImages[index].image) else { return nil }
-            let imageData = try Data(contentsOf: imageURL)
-            return UIImage(data: imageData)
-        } catch {
-            print("Data load failed")
-            return nil
-        }
+    func loadImage(url: URL, completion: @escaping (_: Any) -> ()) {
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            guard let data = data, let img = UIImage(data: data) else { return }
+            completion(img)
+        }.resume()
     }
 }

@@ -9,26 +9,44 @@
 import UIKit
 
 class DoodleViewController: UICollectionViewController {
+    let decoder = DataDecoder()
+    var cellImages = [UIImage]()
+    let defaultImage = UIImage(systemName: "rectangle")
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.collectionView!.register(DoodleViewCell.self, forCellWithReuseIdentifier: DoodleViewCell.reuseIdentifier)
         setUpUI()
-    }
-
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 0
+        decoder.decodeJson()
+        fetchImages()
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 0
+        return decoder.doodleImages.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DoodleViewCell.reuseIdentifier, for: indexPath)
-    
-        // Configure the cell
-
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DoodleViewCell.reuseIdentifier, for: indexPath) as! DoodleViewCell
+        DispatchQueue.main.async {
+            if self.cellImages.count > indexPath.item {
+                cell.setImage(self.cellImages[indexPath.item])
+            } else {
+                cell.setImage(self.defaultImage)
+            }
+        }
         return cell
+    }
+    
+    func fetchImages() {
+        decoder.doodleImages.forEach {
+            decoder.loadImage(url: $0.image) { (image) in
+                guard let image = image as? UIImage else { return }
+                self.cellImages.append(image)
+                DispatchQueue.main.async {
+                    self.collectionView.reloadData()
+                }
+            }
+        }
     }
     
     func setUpUI() {
