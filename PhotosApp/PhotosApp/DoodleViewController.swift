@@ -36,5 +36,10 @@ class DoodleViewController: UICollectionViewController {
     func setUpUI() {
         self.collectionView.backgroundColor = .darkGray
         self.title = "Doodles"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(closeDoodleView))
+    }
+    
+    @objc func closeDoodleView() {
+        self.dismiss(animated: true, completion: nil)
     }
 }
