@@ -18,6 +18,7 @@
 		4416DCE92421D9C200027AF0 /* NSNotificationNameExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4416DCE82421D9C200027AF0 /* NSNotificationNameExtension.swift */; };
 		444E12C32420A9BA00FDD453 /* PhotoDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444E12C22420A9BA00FDD453 /* PhotoDataManager.swift */; };
 		44C0604E2421DE2F00E9BB43 /* DataDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C0604D2421DE2F00E9BB43 /* DataDecoder.swift */; };
+		44C060502421E6C400E9BB43 /* DoodleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C0604F2421E6C400E9BB43 /* DoodleViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		4416DCE82421D9C200027AF0 /* NSNotificationNameExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSNotificationNameExtension.swift; sourceTree = "<group>"; };
 		444E12C22420A9BA00FDD453 /* PhotoDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDataManager.swift; sourceTree = "<group>"; };
 		44C0604D2421DE2F00E9BB43 /* DataDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataDecoder.swift; sourceTree = "<group>"; };
+		44C0604F2421E6C400E9BB43 /* DoodleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoodleViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +71,7 @@
 				44062B18241F4EC5001DCD55 /* AppDelegate.swift */,
 				44062B1A241F4EC5001DCD55 /* SceneDelegate.swift */,
 				44062B1C241F4EC5001DCD55 /* ViewController.swift */,
+				44C0604F2421E6C400E9BB43 /* DoodleViewController.swift */,
 				4416DCEB2421D9FF00027AF0 /* View */,
 				4416DCE72421D98A00027AF0 /* Model */,
 				4416DCEA2421D9DF00027AF0 /* Extension */,
@@ -184,6 +187,7 @@
 				44C0604E2421DE2F00E9BB43 /* DataDecoder.swift in Sources */,
 				44062B2F241F5837001DCD55 /* PhotoCollectionViewDataSource.swift in Sources */,
 				444E12C32420A9BA00FDD453 /* PhotoDataManager.swift in Sources */,
+				44C060502421E6C400E9BB43 /* DoodleViewController.swift in Sources */,
 				44062B1B241F4EC5001DCD55 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
