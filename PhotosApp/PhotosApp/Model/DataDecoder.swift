@@ -6,11 +6,11 @@
 //  Copyright © 2020 TTOzzi. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 class DataDecoder {
     private let dataURLString = "https://public.codesquad.kr/jk/doodle.json"
-    private var doodleImages = [DoodleImage]()
+    private(set) var doodleImages = [DoodleImage]()
     
     struct DoodleImage: Decodable {
         var title: String
@@ -25,6 +25,17 @@ class DataDecoder {
             self.doodleImages = try JSONDecoder().decode([DoodleImage].self, from: jsonData)
         } catch {
             print("decode failed: ", error)
+        }
+    }
+    
+    func getImageFor(index: Int) -> UIImage? {
+        do {
+            guard let imageURL = URL(string: doodleImages[index].image) else { return nil }
+            let imageData = try Data(contentsOf: imageURL)
+            return UIImage(data: imageData)
+        } catch {
+            print("Data load failed")
+            return nil
         }
     }
 }
