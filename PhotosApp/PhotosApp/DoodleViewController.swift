@@ -23,6 +23,8 @@ class DoodleViewController: UICollectionViewController, UIGestureRecognizerDeleg
             guard let images = images as? [DataDecoder.DoodleImage] else { return }
             self.fetchImages(images)
         }
+        let menuItem = UIMenuItem(title: "Save", action: #selector(saveItemTabbed))
+        UIMenuController.shared.menuItems = [menuItem]
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -66,11 +68,14 @@ class DoodleViewController: UICollectionViewController, UIGestureRecognizerDeleg
             return
         }
         let location = gesture.location(in: self.collectionView)
-        
-        if let indexPath = self.collectionView.indexPathForItem(at: location) {
-            let cell = self.collectionView.cellForItem(at: indexPath)
-            print("\(cell) selected")
-        }
+        guard let indexPath = self.collectionView.indexPathForItem(at: location),
+            let cell = self.collectionView.cellForItem(at: indexPath) else { return }
+        cell.becomeFirstResponder()
+        UIMenuController.shared.showMenu(from: cell, rect: collectionView.layoutAttributesForItem(at: indexPath)!.bounds)
+    }
+    
+    @objc func saveItemTabbed() {
+        print("save!")
     }
     
     func setUpUI() {

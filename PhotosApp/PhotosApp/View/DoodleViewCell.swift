@@ -16,6 +16,10 @@ class DoodleViewCell: UICollectionViewCell {
         return imageView
     }()
     
+    override var canBecomeFirstResponder: Bool {
+        true
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUpUI()
