@@ -41,7 +41,7 @@ extension ViewController {
     @objc func photoRemoveUpdate(_ notification: Notification) {
         DispatchQueue.main.sync {
             guard let receivedData = notification.userInfo,
-                let index = receivedData[PhotoDataManager.changes] as? IndexSet else { return }
+                let index = receivedData[PhotoDataManager.photoRemoved] as? IndexSet else { return }
             photoCollectionView.performBatchUpdates({
                 
                 self.photoCollectionView.deleteItems(at: index.map { IndexPath(item: $0, section: 0) })
@@ -52,7 +52,7 @@ extension ViewController {
     @objc func photoInsertUpdate(_ notification: Notification) {
         DispatchQueue.main.sync {
             guard let receivedData = notification.userInfo,
-                let index = receivedData[PhotoDataManager.changes] as? IndexSet else { return }
+                let index = receivedData[PhotoDataManager.photoInserted] as? IndexSet else { return }
             photoCollectionView.performBatchUpdates({
                 self.photoCollectionView.insertItems(at: index.map { IndexPath(item: $0, section: 0) })
             }, completion: nil)
@@ -62,7 +62,7 @@ extension ViewController {
     @objc func photoChangeUpdate(_ notification: Notification) {
         DispatchQueue.main.sync {
             guard let receivedData = notification.userInfo,
-                let index = receivedData[PhotoDataManager.changes] as? IndexSet else { return }
+                let index = receivedData[PhotoDataManager.photoChanged] as? IndexSet else { return }
             photoCollectionView.performBatchUpdates({
                 self.photoCollectionView.reloadItems(at: index.map { IndexPath(item: $0, section: 0) })
             }, completion: nil)
@@ -72,7 +72,7 @@ extension ViewController {
     @objc func photoEnumerateUpdate(_ notification: Notification) {
         DispatchQueue.main.sync {
             guard let receivedData = notification.userInfo,
-                let index = receivedData[PhotoDataManager.changes] as? (Int, Int) else { return }
+                let index = receivedData[PhotoDataManager.photoEnumerated] as? (Int, Int) else { return }
             photoCollectionView.performBatchUpdates({
                 self.photoCollectionView.moveItem(at: IndexPath(item: index.0, section: 0), to: IndexPath(item: index.1, section: 0))
             }, completion: nil)
