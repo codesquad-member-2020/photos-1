@@ -57,7 +57,11 @@ class DoodleViewController: UICollectionViewController, UIGestureRecognizerDeleg
                 guard let image = image as? UIImage else { return }
                 self.cellImages.append(image)
                 DispatchQueue.main.async {
-                    self.collectionView.reloadData()
+                    if self.cellImages.count < 40 {
+                        self.collectionView.reloadData()
+                    } else if self.cellImages.count == images.count {
+                        self.collectionView.reloadData()
+                    }
                 }
             }
         }
