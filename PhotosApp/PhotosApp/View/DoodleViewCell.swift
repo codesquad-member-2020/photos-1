@@ -15,7 +15,6 @@ class DoodleViewCell: UICollectionViewCell {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
-    
     override var canBecomeFirstResponder: Bool {
         true
     }

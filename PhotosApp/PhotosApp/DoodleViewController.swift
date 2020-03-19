@@ -45,6 +45,12 @@ class DoodleViewController: UICollectionViewController, UIGestureRecognizerDeleg
         return cell
     }
     
+    func setUpUI() {
+        self.collectionView.backgroundColor = .darkGray
+        self.title = "Doodles"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(closeDoodleView))
+    }
+    
     func fetchImages(_ images: [DataDecoder.DoodleImage]) {
         images.forEach {
             decoder.loadImage(url: $0.image) { (image) in
@@ -80,12 +86,6 @@ class DoodleViewController: UICollectionViewController, UIGestureRecognizerDeleg
     @objc func saveItemTabbed() {
         app.photoDataManager.addImage(image: selectedImage)
         self.dismiss(animated: true, completion: nil)
-    }
-    
-    func setUpUI() {
-        self.collectionView.backgroundColor = .darkGray
-        self.title = "Doodles"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(closeDoodleView))
     }
     
     @objc func closeDoodleView() {

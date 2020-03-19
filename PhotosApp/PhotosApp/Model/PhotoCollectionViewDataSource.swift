@@ -9,8 +9,7 @@
 import UIKit
 
 class PhotoCollectionViewDataSource: NSObject, UICollectionViewDataSource {
-    let app = UIApplication.shared.delegate as! AppDelegate
-    
+    private let app = UIApplication.shared.delegate as! AppDelegate
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return app.photoDataManager.photoCount
