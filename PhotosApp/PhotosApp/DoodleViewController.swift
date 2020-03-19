@@ -11,7 +11,6 @@ import UIKit
 class DoodleViewController: UICollectionViewController, UIGestureRecognizerDelegate {
     private let app = UIApplication.shared.delegate as! AppDelegate
     private let decoder = DataDecoder()
-    private let defaultImage = UIImage(systemName: "rectangle")
     private var cellImages = [UIImage]()
     private var longPressGestureRecognizer: UILongPressGestureRecognizer!
     private var selectedImage: UIImage!
@@ -38,10 +37,9 @@ class DoodleViewController: UICollectionViewController, UIGestureRecognizerDeleg
             cell.setImage(cellImages[indexPath.item])
         } else {
             decoder.loadImage(url: decoder.doodleImages[indexPath.item].image) { (img) in
-                let image = img as? UIImage
-                self.cellImages.append(image!)
+                self.cellImages.append(img)
                 DispatchQueue.main.async {
-                    cell.setImage(image)
+                    cell.setImage(img)
                 }
             }
         }
