@@ -12,10 +12,12 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var doodleViewController: DoodleViewController!
     var doodleNavigationController: UINavigationController!
+    var photoDataManager: PhotoDataManager!
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         doodleViewController = DoodleViewController(collectionViewLayout: UICollectionViewFlowLayout())
         doodleNavigationController = UINavigationController(rootViewController: doodleViewController)
+        photoDataManager = PhotoDataManager()
         return true
     }
 }

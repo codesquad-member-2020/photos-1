@@ -36,6 +36,12 @@ class PhotoDataManager: NSObject, PHPhotoLibraryChangeObserver {
         return image
     }
     
+    func addImage(image: UIImage) {
+        PHPhotoLibrary.shared().performChanges({
+            PHAssetChangeRequest.creationRequestForAsset(from: image)
+        }, completionHandler: nil)
+    }
+    
     func photoLibraryDidChange(_ changeInstance: PHChange) {
         guard let changes = changeInstance.changeDetails(for: photoData) else { return }
         photoData = changes.fetchResultAfterChanges

@@ -9,10 +9,12 @@
 import UIKit
 
 class DoodleViewController: UICollectionViewController, UIGestureRecognizerDelegate {
-    let decoder = DataDecoder()
-    var cellImages = [UIImage]()
-    let defaultImage = UIImage(systemName: "rectangle")
-    var longPressGestureRecognizer: UILongPressGestureRecognizer!
+    private let app = UIApplication.shared.delegate as! AppDelegate
+    private let decoder = DataDecoder()
+    private let defaultImage = UIImage(systemName: "rectangle")
+    private var cellImages = [UIImage]()
+    private var longPressGestureRecognizer: UILongPressGestureRecognizer!
+    private var selectedImage: UIImage!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,13 +71,15 @@ class DoodleViewController: UICollectionViewController, UIGestureRecognizerDeleg
         }
         let location = gesture.location(in: self.collectionView)
         guard let indexPath = self.collectionView.indexPathForItem(at: location),
-            let cell = self.collectionView.cellForItem(at: indexPath) else { return }
+            let cell = self.collectionView.cellForItem(at: indexPath) as? DoodleViewCell else { return }
         cell.becomeFirstResponder()
         UIMenuController.shared.showMenu(from: cell, rect: collectionView.layoutAttributesForItem(at: indexPath)!.bounds)
+        selectedImage = cell.doodleImageView.image
     }
     
     @objc func saveItemTabbed() {
-        print("save!")
+        app.photoDataManager.addImage(image: selectedImage)
+        self.dismiss(animated: true, completion: nil)
     }
     
     func setUpUI() {

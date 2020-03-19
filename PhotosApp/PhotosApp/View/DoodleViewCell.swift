@@ -10,7 +10,7 @@ import UIKit
 
 class DoodleViewCell: UICollectionViewCell {
     static let reuseIdentifier = "doodleCell"
-    private let doodleImageView: UIImageView = {
+    private(set) var doodleImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
