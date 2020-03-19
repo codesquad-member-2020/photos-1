@@ -32,7 +32,7 @@ class PhotoDataManager: NSObject, PHPhotoLibraryChangeObserver {
     
     func loadImage(index: Int) -> UIImage? {
         var image: UIImage?
-        manager.requestImage(for: photoData.object(at: index), targetSize: PhotoDataManager.thumbnailImageSize, contentMode: .aspectFill, options: nil) { (img, error) in
+        manager.requestImage(for: photoData.object(at: index), targetSize: PhotoDataManager.thumbnailImageSize, contentMode: .aspectFill, options: nil) { (img, _) in
             guard let img = img else { return }
             image = img
         }

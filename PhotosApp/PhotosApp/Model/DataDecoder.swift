@@ -18,13 +18,13 @@ class DataDecoder {
         var date: String
     }
     
-    func decodeJson(completion: @escaping (_: Any) -> ()) {
+    func decodeJson(completion: @escaping () -> ()) {
         DispatchQueue.main.async {
             do {
                 guard let dataURL = URL(string: self.dataURLString),
                     let jsonData = try String(contentsOf: dataURL).data(using: .utf8) else { return }
                 self.doodleImages = try JSONDecoder().decode([DoodleImage].self, from: jsonData)
-                completion(self.doodleImages)
+                completion()
             } catch {
                 print("decode failed: ", error)
             }
@@ -32,7 +32,7 @@ class DataDecoder {
     }
     
     func loadImage(url: URL, completion: @escaping (_: Any) -> ()) {
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
+        URLSession.shared.dataTask(with: url) { (data, _, _) in
             guard let data = data, let img = UIImage(data: data) else { return }
             completion(img)
         }.resume()

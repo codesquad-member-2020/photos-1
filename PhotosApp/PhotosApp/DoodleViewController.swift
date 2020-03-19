@@ -21,9 +21,8 @@ class DoodleViewController: UICollectionViewController, UIGestureRecognizerDeleg
         self.collectionView!.register(DoodleViewCell.self, forCellWithReuseIdentifier: DoodleViewCell.reuseIdentifier)
         setUpUI()
         setLongPressGestureRecognizer()
-        decoder.decodeJson { (images) in
-            guard let images = images as? [DataDecoder.DoodleImage] else { return }
-            self.fetchImages(images)
+        decoder.decodeJson {
+            self.collectionView.reloadData()
         }
         let menuItem = UIMenuItem(title: "Save", action: #selector(saveItemTabbed))
         UIMenuController.shared.menuItems = [menuItem]
@@ -35,11 +34,15 @@ class DoodleViewController: UICollectionViewController, UIGestureRecognizerDeleg
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DoodleViewCell.reuseIdentifier, for: indexPath) as! DoodleViewCell
-        DispatchQueue.main.async {
-            if self.cellImages.count > indexPath.item {
-                cell.setImage(self.cellImages[indexPath.item])
-            } else {
-                cell.setImage(self.defaultImage)
+        if indexPath.item < cellImages.count {
+            cell.setImage(cellImages[indexPath.item])
+        } else {
+            decoder.loadImage(url: decoder.doodleImages[indexPath.item].image) { (img) in
+                let image = img as? UIImage
+                self.cellImages.append(image!)
+                DispatchQueue.main.async {
+                    cell.setImage(image)
+                }
             }
         }
         return cell
@@ -49,22 +52,6 @@ class DoodleViewController: UICollectionViewController, UIGestureRecognizerDeleg
         self.collectionView.backgroundColor = .darkGray
         self.title = "Doodles"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(closeDoodleView))
-    }
-    
-    func fetchImages(_ images: [DataDecoder.DoodleImage]) {
-        images.forEach {
-            decoder.loadImage(url: $0.image) { (image) in
-                guard let image = image as? UIImage else { return }
-                self.cellImages.append(image)
-                DispatchQueue.main.async {
-                    if self.cellImages.count < 40 {
-                        self.collectionView.reloadData()
-                    } else if self.cellImages.count == images.count {
-                        self.collectionView.reloadData()
-                    }
-                }
-            }
-        }
     }
     
     func setLongPressGestureRecognizer() {
