@@ -18,13 +18,16 @@ class DataDecoder {
         var date: String
     }
     
-    func decodeJson() {
-        do {
-            guard let dataURL = URL(string: dataURLString),
-                let jsonData = try String(contentsOf: dataURL).data(using: .utf8) else { return }
-            self.doodleImages = try JSONDecoder().decode([DoodleImage].self, from: jsonData)
-        } catch {
-            print("decode failed: ", error)
+    func decodeJson(completion: @escaping (_: Any) -> ()) {
+        DispatchQueue.main.async {
+            do {
+                guard let dataURL = URL(string: self.dataURLString),
+                    let jsonData = try String(contentsOf: dataURL).data(using: .utf8) else { return }
+                self.doodleImages = try JSONDecoder().decode([DoodleImage].self, from: jsonData)
+                completion(self.doodleImages)
+            } catch {
+                print("decode failed: ", error)
+            }
         }
     }
     

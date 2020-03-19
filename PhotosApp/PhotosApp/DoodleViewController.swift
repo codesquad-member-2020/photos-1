@@ -17,8 +17,10 @@ class DoodleViewController: UICollectionViewController {
         super.viewDidLoad()
         self.collectionView!.register(DoodleViewCell.self, forCellWithReuseIdentifier: DoodleViewCell.reuseIdentifier)
         setUpUI()
-        decoder.decodeJson()
-        fetchImages()
+        decoder.decodeJson { (images) in
+            guard let images = images as? [DataDecoder.DoodleImage] else { return }
+            self.fetchImages(images)
+        }
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -37,8 +39,8 @@ class DoodleViewController: UICollectionViewController {
         return cell
     }
     
-    func fetchImages() {
-        decoder.doodleImages.forEach {
+    func fetchImages(_ images: [DataDecoder.DoodleImage]) {
+        images.forEach {
             decoder.loadImage(url: $0.image) { (image) in
                 guard let image = image as? UIImage else { return }
                 self.cellImages.append(image)
