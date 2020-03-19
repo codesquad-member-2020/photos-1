@@ -8,15 +8,17 @@
 
 import UIKit
 
-class DoodleViewController: UICollectionViewController {
+class DoodleViewController: UICollectionViewController, UIGestureRecognizerDelegate {
     let decoder = DataDecoder()
     var cellImages = [UIImage]()
     let defaultImage = UIImage(systemName: "rectangle")
+    var longPressGestureRecognizer: UILongPressGestureRecognizer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.collectionView!.register(DoodleViewCell.self, forCellWithReuseIdentifier: DoodleViewCell.reuseIdentifier)
         setUpUI()
+        setLongPressGestureRecognizer()
         decoder.decodeJson { (images) in
             guard let images = images as? [DataDecoder.DoodleImage] else { return }
             self.fetchImages(images)
@@ -48,6 +50,26 @@ class DoodleViewController: UICollectionViewController {
                     self.collectionView.reloadData()
                 }
             }
+        }
+    }
+    
+    func setLongPressGestureRecognizer() {
+        longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(cellPressed))
+        longPressGestureRecognizer.minimumPressDuration = 0.5
+        longPressGestureRecognizer.delegate = self
+        longPressGestureRecognizer.delaysTouchesBegan = true
+        self.collectionView.addGestureRecognizer(longPressGestureRecognizer)
+    }
+    
+    @objc func cellPressed(gesture: UILongPressGestureRecognizer!) {
+        if gesture.state != .began {
+            return
+        }
+        let location = gesture.location(in: self.collectionView)
+        
+        if let indexPath = self.collectionView.indexPathForItem(at: location) {
+            let cell = self.collectionView.cellForItem(at: indexPath)
+            print("\(cell) selected")
         }
     }
     
