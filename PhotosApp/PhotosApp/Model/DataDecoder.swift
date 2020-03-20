@@ -19,7 +19,7 @@ class DataDecoder {
     }
     
     func decodeJson(completion: @escaping () -> ()) {
-        DispatchQueue.main.async {
+        DispatchQueue.global(qos: .background).async {
             do {
                 guard let dataURL = URL(string: self.dataURLString),
                     let jsonData = try String(contentsOf: dataURL).data(using: .utf8) else { return }
