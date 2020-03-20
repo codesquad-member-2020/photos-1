@@ -29,7 +29,7 @@ class DoodleViewDataSource: NSObject, UICollectionViewDataSource {
         if indexPath.item < cellImages.count {
             cell.setImage(cellImages[indexPath.item])
         } else {
-            decoder.loadImage(url: decoder.doodleImages[indexPath.item].image) { (img) in
+            ImageLoader.shared.loadImage(url: doodleDecoder.doodleImages[indexPath.item].image) { (img) in
                 self.cellImages.append(img)
                 DispatchQueue.main.async {
                     cell.setImage(img)

@@ -18,6 +18,7 @@
 		4416DCE92421D9C200027AF0 /* NSNotificationNameExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4416DCE82421D9C200027AF0 /* NSNotificationNameExtension.swift */; };
 		4433D3E42422071200AC2A39 /* DoodleViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4433D3E32422071200AC2A39 /* DoodleViewCell.swift */; };
 		443DD53324248B6F004F2722 /* DoodleViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443DD53224248B6F004F2722 /* DoodleViewDataSource.swift */; };
+		443DD535242491D7004F2722 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443DD534242491D7004F2722 /* ImageLoader.swift */; };
 		444E12C32420A9BA00FDD453 /* PhotoDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444E12C22420A9BA00FDD453 /* PhotoDataManager.swift */; };
 		44C0604E2421DE2F00E9BB43 /* DataDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C0604D2421DE2F00E9BB43 /* DataDecoder.swift */; };
 		44C060502421E6C400E9BB43 /* DoodleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C0604F2421E6C400E9BB43 /* DoodleViewController.swift */; };
@@ -37,6 +38,7 @@
 		4416DCE82421D9C200027AF0 /* NSNotificationNameExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSNotificationNameExtension.swift; sourceTree = "<group>"; };
 		4433D3E32422071200AC2A39 /* DoodleViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoodleViewCell.swift; sourceTree = "<group>"; };
 		443DD53224248B6F004F2722 /* DoodleViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoodleViewDataSource.swift; sourceTree = "<group>"; };
+		443DD534242491D7004F2722 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		444E12C22420A9BA00FDD453 /* PhotoDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDataManager.swift; sourceTree = "<group>"; };
 		44C0604D2421DE2F00E9BB43 /* DataDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataDecoder.swift; sourceTree = "<group>"; };
 		44C0604F2421E6C400E9BB43 /* DoodleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoodleViewController.swift; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 				44062B2E241F5837001DCD55 /* PhotoCollectionViewDataSource.swift */,
 				444E12C22420A9BA00FDD453 /* PhotoDataManager.swift */,
 				44C0604D2421DE2F00E9BB43 /* DataDecoder.swift */,
+				443DD534242491D7004F2722 /* ImageLoader.swift */,
 				443DD53224248B6F004F2722 /* DoodleViewDataSource.swift */,
 			);
 			path = Model;
@@ -188,6 +191,7 @@
 			files = (
 				4416DCE92421D9C200027AF0 /* NSNotificationNameExtension.swift in Sources */,
 				44062B1D241F4EC5001DCD55 /* ViewController.swift in Sources */,
+				443DD535242491D7004F2722 /* ImageLoader.swift in Sources */,
 				44062B3124206E4E001DCD55 /* PhotoCollectionViewCell.swift in Sources */,
 				4433D3E42422071200AC2A39 /* DoodleViewCell.swift in Sources */,
 				44062B19241F4EC5001DCD55 /* AppDelegate.swift in Sources */,

@@ -30,14 +30,4 @@ class DataDecoder {
             }
         }
     }
-    
-    func loadImage(url: URL, completion: @escaping (_: UIImage) -> ()) {
-        URLSession.shared.dataTask(with: url) { (data, _, _) in
-            guard let data = data, let img = UIImage(data: data) else {
-                completion(UIImage(systemName: "photo")!)
-                return
-            }
-            completion(img)
-        }.resume()
-    }
 }
