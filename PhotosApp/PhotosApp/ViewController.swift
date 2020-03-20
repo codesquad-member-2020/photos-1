@@ -11,7 +11,7 @@ import UIKit
 class ViewController: UIViewController {
     @IBOutlet weak var photoCollectionView: UICollectionView!
     
-    private let test = 123
+//    private let test = 123
     
     private let app = UIApplication.shared.delegate as! AppDelegate
     private let photoDataSource = PhotoCollectionViewDataSource()
