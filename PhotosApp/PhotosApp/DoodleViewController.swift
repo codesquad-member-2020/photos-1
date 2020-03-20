@@ -8,11 +8,12 @@
 
 import UIKit
 
-class DoodleViewController: UICollectionViewController, UIGestureRecognizerDelegate {
+class DoodleViewController: UICollectionViewController {
     private let app = UIApplication.shared.delegate as! AppDelegate
+    private let doodleCellSize = CGSize(width: 110, height: 50)
     private var longPressGestureRecognizer: UILongPressGestureRecognizer!
     private var selectedImage: UIImage!
-    let doodleDataSource = DoodleViewDataSource()
+    private let doodleDataSource = DoodleViewDataSource()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,27 +21,37 @@ class DoodleViewController: UICollectionViewController, UIGestureRecognizerDeleg
         self.collectionView!.register(DoodleViewCell.self, forCellWithReuseIdentifier: DoodleViewCell.reuseIdentifier)
         setUpUI()
         NotificationCenter.default.addObserver(self, selector: #selector(reloadCollectionView), name: DoodleViewDataSource.decodeCompletion, object: nil)
-        setLongPressGestureRecognizer()
-        let menuItem = UIMenuItem(title: "Save", action: #selector(saveItemTabbed))
-        UIMenuController.shared.menuItems = [menuItem]
-    }
-    
-    @objc func reloadCollectionView() {
-        collectionView.reloadData()
     }
     
     func setUpUI() {
         self.collectionView.backgroundColor = .darkGray
         self.title = "Doodles"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(closeDoodleView))
+        setLongPressGestureRecognizer()
+        setMenuItem()
     }
     
+    @objc func reloadCollectionView() {
+        collectionView.reloadData()
+    }
+    
+    @objc func closeDoodleView() {
+        self.dismiss(animated: true, completion: nil)
+    }
+}
+
+extension DoodleViewController: UIGestureRecognizerDelegate {
     func setLongPressGestureRecognizer() {
         longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(cellPressed))
         longPressGestureRecognizer.minimumPressDuration = 0.5
         longPressGestureRecognizer.delegate = self
         longPressGestureRecognizer.delaysTouchesBegan = true
         self.collectionView.addGestureRecognizer(longPressGestureRecognizer)
+    }
+    
+    func setMenuItem() {
+        let menuItem = UIMenuItem(title: "Save", action: #selector(saveItemTabbed))
+        UIMenuController.shared.menuItems = [menuItem]
     }
     
     @objc func cellPressed(gesture: UILongPressGestureRecognizer!) {
@@ -54,19 +65,15 @@ class DoodleViewController: UICollectionViewController, UIGestureRecognizerDeleg
         UIMenuController.shared.showMenu(from: cell, rect: collectionView.layoutAttributesForItem(at: indexPath)!.bounds)
         selectedImage = cell.doodleImageView.image
     }
-    
+
     @objc func saveItemTabbed() {
         app.photoDataManager.addImage(image: selectedImage)
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    @objc func closeDoodleView() {
         self.dismiss(animated: true, completion: nil)
     }
 }
 
 extension DoodleViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 110, height: 50)
+        return doodleCellSize
     }
 }
