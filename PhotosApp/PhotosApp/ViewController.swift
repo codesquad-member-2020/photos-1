@@ -11,6 +11,7 @@ import UIKit
 class ViewController: UIViewController {
     @IBOutlet weak var photoCollectionView: UICollectionView!
     
+    private let app = UIApplication.shared.delegate as! AppDelegate
     private let photoDataSource = PhotoCollectionViewDataSource()
     
     deinit {
@@ -22,22 +23,27 @@ class ViewController: UIViewController {
         photoCollectionView.dataSource = photoDataSource
         addPhotoObservers()
     }
+    
+    @IBAction func addButtonTabbed(_ sender: Any) {
+        self.present(app.doodleNavigationController, animated: true, completion: nil)
+    }
 }
 
 extension ViewController {
     func addPhotoObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(photoRemoveUpdate), name: NSNotification.Name(rawValue: PhotoDataManager.photoRemoved), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(photoInsertUpdate), name: NSNotification.Name(rawValue: PhotoDataManager.photoInserted), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(photoChangeUpdate), name: NSNotification.Name(rawValue: PhotoDataManager.photoChanged), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(photoEnumerateUpdate), name: NSNotification.Name(rawValue: PhotoDataManager.photoEnumerated), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(photoReloadUpdate), name: NSNotification.Name(rawValue: PhotoDataManager.photoReload), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(photoRemoveUpdate), name: PhotoDataManager.photoRemoved, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(photoInsertUpdate), name: PhotoDataManager.photoInserted, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(photoChangeUpdate), name: PhotoDataManager.photoChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(photoEnumerateUpdate), name: PhotoDataManager.photoEnumerated, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(photoReloadUpdate), name: PhotoDataManager.photoReload, object: nil)
     }
     
     @objc func photoRemoveUpdate(_ notification: Notification) {
         DispatchQueue.main.sync {
-            guard let receivedData = notification.userInfo else { return }
+            guard let receivedData = notification.userInfo,
+                let index = receivedData[PhotoDataManager.photoRemoved] as? IndexSet else { return }
             photoCollectionView.performBatchUpdates({
-                guard let index = receivedData[PhotoDataManager.photoRemoved] as? IndexSet else { return }
+                
                 self.photoCollectionView.deleteItems(at: index.map { IndexPath(item: $0, section: 0) })
             }, completion: nil)
         }
@@ -45,9 +51,9 @@ extension ViewController {
     
     @objc func photoInsertUpdate(_ notification: Notification) {
         DispatchQueue.main.sync {
-            guard let receivedData = notification.userInfo else { return }
+            guard let receivedData = notification.userInfo,
+                let index = receivedData[PhotoDataManager.photoInserted] as? IndexSet else { return }
             photoCollectionView.performBatchUpdates({
-                guard let index = receivedData[PhotoDataManager.photoInserted] as? IndexSet else { return }
                 self.photoCollectionView.insertItems(at: index.map { IndexPath(item: $0, section: 0) })
             }, completion: nil)
         }
@@ -55,9 +61,9 @@ extension ViewController {
     
     @objc func photoChangeUpdate(_ notification: Notification) {
         DispatchQueue.main.sync {
-            guard let receivedData = notification.userInfo else { return }
+            guard let receivedData = notification.userInfo,
+                let index = receivedData[PhotoDataManager.photoChanged] as? IndexSet else { return }
             photoCollectionView.performBatchUpdates({
-                guard let index = receivedData[PhotoDataManager.photoChanged] as? IndexSet else { return }
                 self.photoCollectionView.reloadItems(at: index.map { IndexPath(item: $0, section: 0) })
             }, completion: nil)
         }
@@ -65,9 +71,9 @@ extension ViewController {
     
     @objc func photoEnumerateUpdate(_ notification: Notification) {
         DispatchQueue.main.sync {
-            guard let receivedData = notification.userInfo else { return }
+            guard let receivedData = notification.userInfo,
+                let index = receivedData[PhotoDataManager.photoEnumerated] as? (Int, Int) else { return }
             photoCollectionView.performBatchUpdates({
-                guard let index = receivedData[PhotoDataManager.photoEnumerated] as? (Int, Int) else { return }
                 self.photoCollectionView.moveItem(at: IndexPath(item: index.0, section: 0), to: IndexPath(item: index.1, section: 0))
             }, completion: nil)
         }
