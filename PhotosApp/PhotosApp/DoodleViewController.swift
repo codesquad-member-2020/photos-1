@@ -10,40 +10,23 @@ import UIKit
 
 class DoodleViewController: UICollectionViewController, UIGestureRecognizerDelegate {
     private let app = UIApplication.shared.delegate as! AppDelegate
-    private let decoder = DataDecoder()
-    private var cellImages = [UIImage]()
     private var longPressGestureRecognizer: UILongPressGestureRecognizer!
     private var selectedImage: UIImage!
+    let doodleDataSource = DoodleViewDataSource()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.collectionView.dataSource = doodleDataSource
         self.collectionView!.register(DoodleViewCell.self, forCellWithReuseIdentifier: DoodleViewCell.reuseIdentifier)
         setUpUI()
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadCollectionView), name: DoodleViewDataSource.decodeCompletion, object: nil)
         setLongPressGestureRecognizer()
-        decoder.decodeJson {
-            self.collectionView.reloadData()
-        }
         let menuItem = UIMenuItem(title: "Save", action: #selector(saveItemTabbed))
         UIMenuController.shared.menuItems = [menuItem]
     }
-
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return decoder.doodleImages.count
-    }
     
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DoodleViewCell.reuseIdentifier, for: indexPath) as! DoodleViewCell
-        if indexPath.item < cellImages.count {
-            cell.setImage(cellImages[indexPath.item])
-        } else {
-            decoder.loadImage(url: decoder.doodleImages[indexPath.item].image) { (img) in
-                self.cellImages.append(img)
-                DispatchQueue.main.async {
-                    cell.setImage(img)
-                }
-            }
-        }
-        return cell
+    @objc func reloadCollectionView() {
+        collectionView.reloadData()
     }
     
     func setUpUI() {
