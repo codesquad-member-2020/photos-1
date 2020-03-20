@@ -9,7 +9,6 @@
 import UIKit
 
 class DoodleViewController: UICollectionViewController {
-    private let app = UIApplication.shared.delegate as! AppDelegate
     private let doodleCellSize = CGSize(width: 110, height: 50)
     private var longPressGestureRecognizer: UILongPressGestureRecognizer!
     private var selectedImage: UIImage!
@@ -67,7 +66,7 @@ extension DoodleViewController: UIGestureRecognizerDelegate {
     }
 
     @objc func saveItemTabbed() {
-        app.photoDataManager.addImage(image: selectedImage)
+        PhotoDataManager.shared.addImage(image: selectedImage)
         self.dismiss(animated: true, completion: nil)
     }
 }

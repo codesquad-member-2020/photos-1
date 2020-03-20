@@ -10,6 +10,7 @@ import UIKit
 import Photos
 
 class PhotoDataManager: NSObject, PHPhotoLibraryChangeObserver {
+    static let shared = PhotoDataManager()
     static let thumbnailImageSize = CGSize(width: 100, height: 100)
     static let photoRemoved = "photoRemoved"
     static let photoInserted = "photoInserted"
@@ -21,7 +22,7 @@ class PhotoDataManager: NSObject, PHPhotoLibraryChangeObserver {
         return photoData.count
     }
     
-    override init() {
+    private override init() {
         super.init()
         PHPhotoLibrary.shared().register(self)
     }
