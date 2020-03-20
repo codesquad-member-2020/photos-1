@@ -12,10 +12,11 @@ import Photos
 class PhotoDataManager: NSObject, PHPhotoLibraryChangeObserver {
     static let shared = PhotoDataManager()
     static let thumbnailImageSize = CGSize(width: 100, height: 100)
-    static let photoRemoved = "photoRemoved"
-    static let photoInserted = "photoInserted"
-    static let photoChanged = "photoChanged"
-    static let photoEnumerated = "photoEnumerated"
+    static let photoReload = NSNotification.Name("photoReload")
+    static let photoRemoved = NSNotification.Name("photoRemoved")
+    static let photoInserted = NSNotification.Name("photoInserted")
+    static let photoChanged = NSNotification.Name("photoChanged")
+    static let photoEnumerated = NSNotification.Name("photoEnumerated")
     private var photoData = PHAsset.fetchAssets(with: .image, options: nil)
     private let manager = PHImageManager.default()
     var photoCount: Int {
@@ -51,19 +52,19 @@ class PhotoDataManager: NSObject, PHPhotoLibraryChangeObserver {
         photoData = changes.fetchResultAfterChanges
         if changes.hasIncrementalChanges {
             if let removed = changes.removedIndexes, removed.count > 0 {
-                NotificationCenter.default.post(name: .photoRemoved, object: nil, userInfo: [PhotoDataManager.photoRemoved : removed])
+                NotificationCenter.default.post(name: PhotoDataManager.photoChanged, object: nil, userInfo: [PhotoDataManager.photoRemoved : removed])
             }
             if let inserted = changes.insertedIndexes, inserted.count > 0 {
-                NotificationCenter.default.post(name: .photoInserted, object: nil, userInfo: [PhotoDataManager.photoInserted : inserted])
+                NotificationCenter.default.post(name: PhotoDataManager.photoInserted, object: nil, userInfo: [PhotoDataManager.photoInserted : inserted])
             }
             if let changed = changes.changedIndexes, changed.count > 0 {
-                NotificationCenter.default.post(name: .photoChanged, object: nil, userInfo: [PhotoDataManager.photoChanged : changed])
+                NotificationCenter.default.post(name: PhotoDataManager.photoChanged, object: nil, userInfo: [PhotoDataManager.photoChanged : changed])
             }
             changes.enumerateMoves { (fromIndex, toIndex) in
-                NotificationCenter.default.post(name: .photoEnumerated, object: nil, userInfo: [PhotoDataManager.photoEnumerated : (fromIndex, toIndex)])
+                NotificationCenter.default.post(name: PhotoDataManager.photoEnumerated, object: nil, userInfo: [PhotoDataManager.photoEnumerated : (fromIndex, toIndex)])
             }
         } else {
-            NotificationCenter.default.post(name: .photoReload, object: nil)
+            NotificationCenter.default.post(name: PhotoDataManager.photoReload, object: nil)
         }
     }
 }

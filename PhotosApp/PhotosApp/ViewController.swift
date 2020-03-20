@@ -31,11 +31,11 @@ class ViewController: UIViewController {
 
 extension ViewController {
     func addPhotoObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(photoRemoveUpdate), name: .photoRemoved, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(photoInsertUpdate), name: .photoInserted, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(photoChangeUpdate), name: .photoChanged, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(photoEnumerateUpdate), name: .photoEnumerated, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(photoReloadUpdate), name: .photoReload, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(photoRemoveUpdate), name: PhotoDataManager.photoRemoved, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(photoInsertUpdate), name: PhotoDataManager.photoInserted, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(photoChangeUpdate), name: PhotoDataManager.photoChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(photoEnumerateUpdate), name: PhotoDataManager.photoEnumerated, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(photoReloadUpdate), name: PhotoDataManager.photoReload, object: nil)
     }
     
     @objc func photoRemoveUpdate(_ notification: Notification) {
