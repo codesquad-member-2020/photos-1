@@ -52,7 +52,7 @@ class PhotoDataManager: NSObject, PHPhotoLibraryChangeObserver {
         photoData = changes.fetchResultAfterChanges
         if changes.hasIncrementalChanges {
             if let removed = changes.removedIndexes, removed.count > 0 {
-                NotificationCenter.default.post(name: PhotoDataManager.photoChanged, object: nil, userInfo: [PhotoDataManager.photoRemoved : removed])
+                NotificationCenter.default.post(name: PhotoDataManager.photoRemoved, object: nil, userInfo: [PhotoDataManager.photoRemoved : removed])
             }
             if let inserted = changes.insertedIndexes, inserted.count > 0 {
                 NotificationCenter.default.post(name: PhotoDataManager.photoInserted, object: nil, userInfo: [PhotoDataManager.photoInserted : inserted])
