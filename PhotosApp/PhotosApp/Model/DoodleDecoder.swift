@@ -1,5 +1,5 @@
 //
-//  DataDecoder.swift
+//  DoodleDecoder.swift
 //  PhotosApp
 //
 //  Created by TTOzzi on 2020/03/18.
@@ -8,8 +8,7 @@
 
 import UIKit
 
-class DataDecoder {
-    private let dataURLString = "https://public.codesquad.kr/jk/doodle.json"
+class DoodleDecoder {
     private(set) var doodleImages = [DoodleImage]()
     
     struct DoodleImage: Decodable {
@@ -17,11 +16,11 @@ class DataDecoder {
         var image: URL
         var date: String
     }
-    
-    func decodeJson(completion: @escaping () -> ()) {
+
+    func decodeJson(urlString: String, completion: @escaping () -> ()) {
         DispatchQueue.global(qos: .background).async {
             do {
-                guard let dataURL = URL(string: self.dataURLString),
+                guard let dataURL = URL(string: urlString),
                     let jsonData = try String(contentsOf: dataURL).data(using: .utf8) else { return }
                 self.doodleImages = try JSONDecoder().decode([DoodleImage].self, from: jsonData)
                 completion()

@@ -10,18 +10,19 @@ import UIKit
 
 class DoodleViewDataSource: NSObject, UICollectionViewDataSource {
     static let decodeCompletion = NSNotification.Name.init("decodeComplete")
-    private let decoder = DataDecoder()
+    private let doodleDecoder = DoodleDecoder()
+    private let doodleDataURL = "https://public.codesquad.kr/jk/doodle.json"
     private var cellImages = [UIImage]()
     
     override init() {
         super.init()
-        decoder.decodeJson {
+        doodleDecoder.decodeJson(urlString: doodleDataURL) {
             NotificationCenter.default.post(name: DoodleViewDataSource.decodeCompletion, object: nil)
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return decoder.doodleImages.count
+        return doodleDecoder.doodleImages.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
